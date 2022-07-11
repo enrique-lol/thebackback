@@ -45,7 +45,7 @@ router.get('/items', (req, res, next) => {
 
 // SHOW
 // GET /items/5a7db6c74d55bc51bdf39793
-router.get('/items/:id', requireToken, (req, res, next) => {
+router.get('/item/:id', (req, res, next) => {
   // req.params.id will be set based on the `:id` in the route
   Item.findById(req.params.id)
     .then(handle404)
@@ -74,7 +74,7 @@ router.post('/items', requireToken, (req, res, next) => {
 
 // UPDATE
 // PATCH /items/5a7db6c74d55bc51bdf39793
-router.patch('/items/:id', requireToken, removeBlanks, (req, res, next) => {
+router.patch('/item/:id', removeBlanks, (req, res, next) => {
   // if the client attempts to change the `owner` property by including a new
   // owner, prevent that by deleting that key/value pair
   delete req.body.item.owner
@@ -84,7 +84,7 @@ router.patch('/items/:id', requireToken, removeBlanks, (req, res, next) => {
     .then(item => {
       // pass the `req` object and the Mongoose record to `requireOwnership`
       // it will throw an error if the current user isn't the owner
-      requireOwnership(req, item)
+      // requireOwnership(req, item)
 
       // pass the result of Mongoose's `.update` to the next `.then`
       return item.updateOne(req.body.item)
@@ -97,12 +97,11 @@ router.patch('/items/:id', requireToken, removeBlanks, (req, res, next) => {
 
 // DESTROY
 // DELETE /items/5a7db6c74d55bc51bdf39793
-router.delete('/items/:id', requireToken, (req, res, next) => {
+router.delete('/item/:id',  (req, res, next) => {
   Item.findById(req.params.id)
     .then(handle404)
     .then(item => {
       // throw an error if current user doesn't own `item`
-      requireOwnership(req, item)
       // delete the item ONLY IF the above didn't throw
       item.deleteOne()
     })

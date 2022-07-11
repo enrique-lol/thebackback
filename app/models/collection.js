@@ -1,11 +1,19 @@
 const mongoose = require('mongoose')
 
-const exampleSchema = new mongoose.Schema({
+const collectionSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true
   },
-  text: {
+  createdBy: {
+    type: String,
+    required: true
+  },
+  oneLiner: {
+    type: String,
+    required: false
+  },
+  description: {
     type: String,
     required: true
   },
@@ -18,4 +26,4 @@ const exampleSchema = new mongoose.Schema({
   timestamps: true
 })
 
-module.exports = mongoose.model('Example', exampleSchema)
+module.exports = mongoose.model('Collection', collectionSchema)

@@ -1,21 +1,21 @@
 const mongoose = require('mongoose')
 
 const itemSchema = new mongoose.Schema({
-  title: {
+  name: {
     type: String,
     required: true
   },
-  artist: {
+  count: {
     type: String,
     required: true
   },
-  thumbnail: {
+  notes: {
     type: String,
-    required: true
+    required: false
   },
-  priceEther: {
+  clearTargetDate: {
     type: String,
-    required: true
+    required: false
   },
   collectionId: {
     type: String,

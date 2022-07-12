@@ -6,7 +6,7 @@ const cors = require('cors')
 // require route files
 const itemRoutes = require('./app/routes/item_routes')
 const userRoutes = require('./app/routes/user_routes')
-const collectionRoutes = require('./app/routes/collection_routes')
+const bayRoutes = require('./app/routes/bay_routes')
 
 // require middleware
 const errorHandler = require('./lib/error_handler')
@@ -59,7 +59,7 @@ app.use(requestLogger)
 // register route files
 app.use(itemRoutes)
 app.use(userRoutes)
-app.use(collectionRoutes)
+app.use(bayRoutes)
 
 // register error handling middleware
 // note that this comes after the route middlewares, because it needs to be

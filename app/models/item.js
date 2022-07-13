@@ -17,7 +17,7 @@ const itemSchema = new mongoose.Schema({
     type: String,
     required: false
   },
-  collectionId: {
+  bayId: {
     type: String,
     required: false
   },

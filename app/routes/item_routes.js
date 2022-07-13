@@ -42,6 +42,18 @@ router.get('/items', (req, res, next) => {
     // if an error occurs, pass it to the handler
     .catch(next)
 })
+router.get('/items/:id', (req, res, next) => {
+  const bayId = req.params.id
+  Item.find()
+    .then(load => {
+      let goodLoad = load.map(item => this.filter(item.bayId == bayId))
+      return goodLoad.map(item => item.toObject())
+    })
+    // respond with status 200 and JSON of the items
+    .then(item => res.status(200).json({ item: item }))
+    // if an error occurs, pass it to the handler
+    .catch(next)
+})
 
 // SHOW
 // GET /items/5a7db6c74d55bc51bdf39793

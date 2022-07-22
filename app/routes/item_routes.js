@@ -42,16 +42,17 @@ router.get('/items', (req, res, next) => {
     // if an error occurs, pass it to the handler
     .catch(next)
 })
-router.get('/items/:id', (req, res, next) => {
-  const bayId = req.params.id
+router.get('/items-select/', (req, res, next) => {
+  const bayId = req.body.bay
   Item.find()
-    .then(load => {
-      let goodLoad = load.map(item => this.filter(item.bayId == bayId))
-      return goodLoad.map(item => item.toObject())
-    })
-    // respond with status 200 and JSON of the items
+    .then(item => {
+      const initArray = item.map(item => item.toObject())
+      const filteredArray = initArray.filter(item => item.bayId == bayId)
+      return filteredArray
+
+      })
     .then(item => res.status(200).json({ item: item }))
-    // if an error occurs, pass it to the handler
+    .then(console.log(bayId))
     .catch(next)
 })
 
@@ -75,6 +76,7 @@ router.post('/items', requireToken, (req, res, next) => {
 
   Item.create(req.body.item)
     // respond to succesful `create` with status 201 and JSON of new "item"
+    .then(console.log(req))
     .then(item => {
       res.status(201).json({ item: item.toObject() })
     })
